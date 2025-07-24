@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <title>Арслан мен Арайдың үйлену тойы</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: url('fon.jpg') center/cover no-repeat fixed;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      backdrop-filter: brightness(0.5);
+    }
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
+    .content {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-transform: none;
+    }
+    .photo {
+      width: 100%;
+      border-radius: 1rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      animation: zoomIn 2s ease-in-out;
+    }
+    .timer {
+      font-size: 1.5rem;
+      margin: 1.5rem 0;
+      font-weight: bold;
+    }
+    .button {
+      display: inline-block;
+      margin-top: 1.5rem;
+      background-color: #25D366;
+      padding: 0.8rem 1.5rem;
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .button:hover {
+      background-color: #128C7E;
+    }
+    .lang-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0,0,0,0.5);
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+    }
+    .details p {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .details.visible p {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .details.visible p:nth-child(1) { transition-delay: 0.3s; }
+    .details.visible p:nth-child(2) { transition-delay: 0.6s; }
+    .details.visible p:nth-child(3) { transition-delay: 0.9s; }
+    .details.visible p:nth-child(4) { transition-delay: 1.2s; }
+    .details.visible p:nth-child(5) { transition-delay: 1.5s; }
+    .details.visible p:nth-child(6) { transition-delay: 1.8s; }
+
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      margin-top: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+
+    audio { display: none; }
+
+    @keyframes zoomIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+
+  <div class="lang-toggle" onclick="toggleLang()">RU</div>
+
+  <div class="content">
+     <h1 id="title" style="font-family: 'Montserrat', sans-serif; font-size: 2.5rem; text-transform: none;">
+  Арслан мен Арайдың үйлену тойы
+</h1>
+    <p id="text">Сізді 2025 жылдың 31 тамызында болатын үйлену тойымызға шақырамыз!</p>
+    <img src="photo.jpg" alt="photo" class="photo">
+    <div class="timer" id="countdown"></div>
+    <a class="button" id="whatsapp" href="#" target="_blank">Хабарласу</a>
+
+    <div class="details" id="details">
+      <p id="place"></p>
+      <p id="address"></p>
+      <p id="date"></p>
+      <p id="time"></p>
+      <p id="owners"></p>
+      <p id="message"></p>
+    </div>
+
+    <!-- Google карта -->
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1276.0753313407845!2d76.91924779415623!3d52.03378270987968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x42f8299c72daae63%3A0xc9426cf92aa9bda9!2z0J3QtdCyLUVz0JrQoiDQn9Cw0LTQtdC60YHQutC40LkgItCh0YLQsNC70LjQtdCyIg!5e0!3m2!1sru!2skz!4v1721836563353!5m2!1sru!2skz"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+
+  <audio id="bg-music" src="music.mp3" autoplay loop></audio>
+
+  <script>
+    const langData = {
+      kk: {
+        title: "Арслан мен Арайдың үйлену тойы",
+        text: "Сізді 2025 жылдың 31 тамызында болатын үйлену тойымызға шақырамыз!",
+        place: "📍 Өтетін орны: \"Нур-рай\" мейрамханасы",
+        address: "📍 Мекенжайы: Строителей көшесі 4В",
+        date: "📅 Күні: 31 тамыз 2025",
+        time: "🕐 Уақыты: 15:00",
+        owners: "🎀 Той иелері: Боранбай мен Бибигуль",
+        message: "Келіңіздер, көріңіздер, ақ тілектеріңізді аямаңыздар!",
+        whatsapp: "Жазу WhatsApp арқылы",
+        waLink: "https://wa.me/77758790233?text=Сәлеметсіз бе,%20мен%20тойға%20келемін!",
+        langBtn: "RU",
+        timer: { days: "күн", hours: "сағ", minutes: "мин", seconds: "сек", started: "Той басталды!" }
+      },
+      ru: {
+        title: "Свадьба Арслана и Арай",
+        text: "Приглашаем вас на нашу свадьбу 31 августа 2025 года!",
+        place: "📍 Место проведения: ресторан \"Нур-рай\"",
+        address: "📍 Адрес: ул. Строителей, 4В",
+        date: "📅 Дата: 31 августа 2025",
+        time: "🕐 Время: 15:00",
+        owners: "🎀 Организаторы: Боранбай и Бибигуль",
+        message: "Приходите, посмотрите и пожелайте добра!",
+        whatsapp: "Написать в WhatsApp",
+        waLink: "https://wa.me/77758790233?text=Здравствуйте,%20я%20приду%20на%20свадьбу!",
+        langBtn: "KZ",
+        timer: { days: "дн", hours: "ч", minutes: "мин", seconds: "сек", started: "Свадьба началась!" }
+      }
+    };
+
+    let currentLang = 'kk';
+
+    function toggleLang() {
+      currentLang = currentLang === 'kk' ? 'ru' : 'kk';
+      applyLang();
+    }
+
+    function applyLang() {
+      const data = langData[currentLang];
+      document.getElementById('title').innerText = data.title;
+      document.getElementById('text').innerText = data.text;
+      document.getElementById('place').innerText = data.place;
+      document.getElementById('address').innerText = data.address;
+      document.getElementById('date').innerText = data.date;
+      document.getElementById('time').innerText = data.time;
+      document.getElementById('owners').innerText = data.owners;
+      document.getElementById('message').innerText = data.message;
+      document.getElementById('whatsapp').innerText = data.whatsapp;
+      document.getElementById('whatsapp').href = data.waLink;
+      document.querySelector('.lang-toggle').innerText = data.langBtn;
+    }
+
+    const countdown = document.getElementById("countdown");
+    const eventDate = new Date("2025-08-31T15:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+      const t = langData[currentLang].timer;
+
+      if (distance < 0) {
+        countdown.innerHTML = t.started;
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      countdown.innerHTML = `${days} ${t.days} ${hours} ${t.hours} ${minutes} ${t.minutes} ${seconds} ${t.seconds}`;
+    }
+
+    setInterval(updateCountdown, 1000);
+
+    window.addEventListener('scroll', () => {
+      const details = document.getElementById('details');
+      const rect = details.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 100) {
+        details.classList.add('visible');
+      }
+    });
+
+    applyLang();
+    updateCountdown();
+  </script>
+</body>
+</html>
